@@ -1,0 +1,12 @@
+--- 
+– hosts: nodo3 #suscriptor y publicador grafana
+tasks:
+- name: Copy config
+  become: true
+copy:
+  src: grafana.conf
+  dest: /etc/grafana/grafana.conf
+- name: Comprobar si suscriptor de grafana esta activo
+  service: 
+  name: grafana
+  state: started   #le digo que inicie telegraf

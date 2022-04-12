@@ -1,0 +1,13 @@
+--- 
+- name: Create influxdb datasource
+  grafana_datasource:
+    name: "datasource-influxdb"
+    grafana_url: "https://grafana.company.com"
+    grafana_user: "admin"
+    grafana_password: "xxxxxx"
+    org_id: "1"
+    ds_type: "influxdb"
+    ds_url: "https://influx.company.com:8086"
+    database: "telegraf"
+    time_interval: ">10s"
+    tls_ca_cert: "/etc/ssl/certs/ca.pem"

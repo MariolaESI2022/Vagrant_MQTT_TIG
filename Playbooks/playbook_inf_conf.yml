@@ -1,0 +1,12 @@
+--- 
+– hosts: nodo3 #suscriptor InfluxDB 
+tasks:
+- name: Copy config
+  become: true
+copy:
+  src: grafana.conf
+  dest: /etc/influxdb/influxDB.conf
+- name: Check Suscriptor
+  service: 
+  name: influxDB
+  state: started   #le digo que inicie InfluxDB

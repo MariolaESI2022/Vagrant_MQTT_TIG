@@ -1,0 +1,8 @@
+$ ssh -p 2200 \
+> -i /home/mariola/vagrant_xenial64/.vagrant/machines/nodo1/virtualbox/private_key \
+> vagrant@localhost hostname
+xenial64
+
+$ ssh -i /home/mariola/vagrant_xenial64/.vagrant/machines/nodo1/virtualbox/private_key \
+> vagrant@192.168.18.50 hostname
+xenial64

@@ -1,0 +1,90 @@
+---
+- hosts: all 
+  tasks:
+    - name: Ping to all nodes
+      ping:
+    - name: Install EPEL
+      become: true
+      name: epel-release 
+      state: present
+
+
+- hosts: nodo1
+  become: true
+  tasks:
+    - name: Install mosquitto
+      become: true
+      name: mosquitto
+      state: present
+    - name: Copy config
+      copy:
+        src: broker.conf
+        dest: /etc/mosquitto/mosquitto.conf
+      notify: Restart Broker
+  handlers:
+    - name: Restart Broker
+      service: 
+        name: mosquitto
+        state: started
+
+- hosts: nodo2
+  become: true
+  tasks:
+    - name: Install mosquitto
+      become: true
+      name: mosquitto
+      state: present
+    - name: Copy config
+      copy:
+        src: pub.conf
+        dest: /etc/mosquitto/mosquitto.conf
+      notify: Restart Publisher
+  handlers:
+    - name: Restart Publisher
+      service: 
+        name: mosquitto
+        state: started
+
+- hosts: nodo3
+  become: true
+  tasks:
+   - name: Install Telegraf
+      become: true
+      name: telegraf
+      state: present
+    - name: Copy config
+      copy:
+        src: telegraf.conf
+        dest: /etc/telegraf/telegraf.conf
+      notify: Restart Telegraf
+   - name: Install Influx DB
+      become: true
+      name: influxDB
+      state: present
+    - name: Copy config
+      copy:
+        src: influxDB.conf
+        dest: /etc/influxDB/influxDB.conf
+      notify: Restart InfluxDB
+  - name: Install Grafana
+      become: true
+      name: grafana
+      state: present
+    - name: Copy config
+      copy:
+        src: influxDB.conf
+        dest: /etc/grafana/grafana.conf
+      notify: Restart Grafana
+  handlers:
+    - name: Restart Telegraf
+      service: 
+        name: telegraf
+        state: started
+    - name: Restart InfluxDB
+      service: 
+        name: influxdb
+        state: started
+    - name: Restart Grafana
+      service: 
+        name: grafana
+        state: started

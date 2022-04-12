@@ -1,0 +1,12 @@
+--- 
+– hosts: nodo3 #suscriptor y publicador telegraf
+tasks:
+- name: Copy config
+  become: true
+copy:
+  src: telegraf.conf
+  dest: /etc/telegraf/telegraf.conf
+- name: Comprobar si suscriptor y publicador de telegraf activo
+  service: 
+  name: telegraf
+  state: started   #le digo que inicie telegraf

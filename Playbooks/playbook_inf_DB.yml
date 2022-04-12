@@ -1,0 +1,34 @@
+--- 
+– hosts: nodo3 #suscriptor InfluxDB 
+tasks:
+- name: Create database
+  influxdb_database:
+      hostname: "192.168.18.53"
+      database_name: "DB_Vivienda_1"
+- name: Write points into database
+  influxdb_write:
+      hostname: "192.168.18.53"
+      database_name: "DB_Vivienda_1"
+      data_points:
+        - measurement: Temperature
+          tags:
+            host: nodo4
+            sensor: 1
+          time: "{{ ansible_date_time.iso8601 }}"
+          fields:
+            value: 2000 #desconoczco el rango
+        - measurement: Sound_Level
+          tags:
+            host: nodo4
+            sensor: 2
+          time: "{{ ansible_date_time.iso8601 }}"
+          fields:
+            value: 2000 #desconoczco el rango
+          - measurement: Water_Level
+          tags:
+            host: nodo4
+            sensor: 3
+          time: "{{ ansible_date_time.iso8601 }}"
+          fields:
+            value: 2000 #desconoczco el rango
+       

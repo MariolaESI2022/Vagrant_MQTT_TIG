@@ -1,0 +1,19 @@
+#Comando para configuración de la máquina virtual
+$ vagrant init ubuntu/xenial64
+
+#Comandos para iniciar o detener la máquina virtual
+$ vagrant up xenial64
+$ vagrant halt
+
+#Comandos para ver el listado y creación
+$ vboxmanage list vms | grep xenial64
+"xenial64" {a507ba0c-...24bb} 
+
+#Configuración de SSH para tener acceso a la terminal
+$ vagrant ssh 
+$ vagrant ssh default
+$ vagrant ssh node1
+
+#Comandos para ver el status
+$ vagrant status
+$ vagrant global-status

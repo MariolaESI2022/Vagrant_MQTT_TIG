@@ -1,0 +1,32 @@
+---
+- hosts: nodo4 #sensores
+  tasks:
+    - name: Install Paho-MQTT
+      become: true
+      yum: 
+        name: python-paho-mqtt 
+        state: present
+    - name: Publish a message on an MQTT topic - Temperature
+      mqtt:
+        topic: 'service/ansible/nodo4'
+        payload: 'Temperature at {{ ansible_date_time.iso8601 }}'
+         qos: 0 # calidad el servicio
+         retain: False # si queremos que se retenga el mensaje
+         server:  192.168.18.50. #IP del nodo 1, que es donde publica.
+         port: 2883 #(por defecto es el 1883)
+    - name: Publish a message on an MQTT topic - Sound Level
+      mqtt:
+        topic: 'service/ansible/nodo4'
+        payload: 'Sound_level at {{ ansible_date_time.iso8601 }}'
+         qos: 0 
+         retain: False 
+         server:  192.168.18.50.
+         port: 2883 
+    - name: Publish a message on an MQTT topic - Water Level
+      mqtt:
+        topic: 'service/ansible/nodo4'
+        payload: 'Water_level at {{ ansible_date_time.iso8601 }}'
+         qos: 0 
+         retain: False 
+         server:  192.168.18.50. 
+         port: 2883 

@@ -1,0 +1,12 @@
+--- 
+– hosts: broker_mqtt
+tasks:
+- name: Copy config
+  become: true
+copy:
+  src: broker.conf
+  dest: /etc/mosquitto/mosquitto.conf
+- name: Check Broker
+  service: 
+  name: mosquitto 
+  state: started   #le digo que inicie mosquito

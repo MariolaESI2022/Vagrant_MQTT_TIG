@@ -1,0 +1,28 @@
+---
+- hosts: nodo3 #pub_telegraf
+  tasks:
+    - name: Transfer the message on an MQTT topic - Temperature from node 2 into InfluxDB
+      telegraf:
+        topic: 'service/ansible/nodo2'
+        payload: 'Temperature at {{ ansible_date_time.iso8601 }}'
+         qos: 0 # calidad el servicio
+         retain: False # si queremos que se retenga el mensaje
+         server:  192.168.18.52. #IP del nodo 3, que es donde publica.
+         port: 2883 #(por defecto es el 1883)
+         #¿Cómo le digo que lo haga en InfluxDB?
+    - name: Transfer the message on an MQTT topic - Sound Level from node 2 into InfluxDB
+      telegraf:
+        topic: 'service/ansible/nodo2'
+        payload: 'Sound_level at {{ ansible_date_time.iso8601 }}'
+         qos: 0 
+         retain: False 
+         server:  192.168.18.52. 
+         port: 2883 
+    - name: Transfer the message on an MQTT topic - Water Level from node 2 into InfluxDB
+      telegraf:
+        topic: 'service/ansible/nodo2'
+        payload: 'Water_level at {{ ansible_date_time.iso8601 }}'
+         qos: 0 
+         retain: False 
+         server:  192.168.18.52. 
+         port: 2883 
